@@ -4,42 +4,31 @@
 
 ## To Do
 
-* 1) build out server template
-    node
-    express
-    body-parser
-        JSON? when do we need this?
-* 2) HTML - BASE
-    Inputs x 2
-    Buttons:
-        operators (+,-,/,*)
-        input
-        =
-        numbers
+* COMPLETE  1) build out server template
+* COMPLETE 2) HTML FRAME COMPLETE
 * 3) JS Client
-    click listeners
-        buttons
-            operators
-            clear
-            input/"="
-        STRETCH calc history
+    COMPLETE click listeners
+        COMPLETE buttons
+        COMPLETE calc history
+    
+    Adjust inputs so that only *proper* inputs can be sent. IE, there must be two terms and an operator, selected in the correct order.
 
     Routes
-        POST: sends data object
+        COMPLETE POST: sends data object
             clears input fields
-        GET: gets updated data object
+        COMPLETE GET: gets updated data object
             diplays answer
             displays calculation  
         STRETCH SEARCH/DELETE ROUTES
 * 4) JS Server
-    Modules
-        receives data body
-        calculates equation and adds results to data object
-        outputs data object
+    COMPLETE Modules
+        COMPLETE receives data body
+        COMPLETE calculates equation and adds results to   data object
+        COMPLETE outputs data object
     Routes
-        POST: accepts calculator input as data object,
+        COMPLETE POST: accepts calculator input as data object,
             sends to calculator object
-        GET: sends data object (total calc history) 
+        COMPLETE GET: sends data object (total calc history) 
 
 
 ## Description

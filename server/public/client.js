@@ -6,7 +6,7 @@ function onReady (){
     $('.opbtn').on('click',setOperator);
     $('.clear').on('click',clearEquation);
     $('.equals').on('click', sendEquation);
-    $('#calculationHistory').on('click', '[id*=equation]',removeEquation);
+    $('#calculationHistory').on('click', '[id*=equation]',resubmitEquation);
   
 }
 
@@ -52,7 +52,6 @@ function sendEquation (){
         console.log('response', serverStatus);
         getEquationSolution();
     })
- 
 }
 
 function getEquationSolution(){
@@ -67,14 +66,38 @@ function getEquationSolution(){
         `);
         for (let i=0; i<equationSolutions.length; i++) {
             $('#calculationHistory').prepend(`
-            <li id="equation${i}">${equationSolutions[i].termOne} ${equationSolutions[i].operator} ${equationSolutions[i].termTwo} = ${equationSolutions[i].solution}</li>
+            <li id="equation${i}" 
+                data-termone="${equationSolutions[i].termOne}" 
+                data-termtwo="${equationSolutions[i].termTwo}" 
+                data-operator="${equationSolutions[i].operator}">
+                ${equationSolutions[i].termOne} ${equationSolutions[i].operator} ${equationSolutions[i].termTwo} = ${equationSolutions[i].solution}
+            </li>
         `);
         }
     });
 }
 
+function resubmitEquation () {
+    $.ajax({
+        method: 'POST',
+        url: '/calculate',
+        data: {
+            termOne: $(this).data('termone'),
+            termTwo: $(this).data('termtwo'),
+            operator: $(this).data('operator'),
+        }
+    }).then(function(serverStatus){
+        console.log('response', serverStatus);
+        getEquationSolution();
+    })
+}
+
 function removeEquation(){
     console.log($(this));
+    $.ajax({
+        method: 'DELETE',
+        url: '/delete',
+    })
 }
 //#solution
 //#calculationHistory
