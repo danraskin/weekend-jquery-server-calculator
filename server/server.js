@@ -5,7 +5,7 @@ const PORT = 5000;
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static('server/public'));
 
-const calculationHistory = require('./modules/calculations.js')
+let calculationHistory = require('./modules/calculations.js')
 const calculateEquation = require('./modules/calc_function.js')
 
 // ROUTES BELOW HERE
@@ -13,14 +13,18 @@ const calculateEquation = require('./modules/calc_function.js')
 app.post('/calculate', (req, res) => {
     console.log('POST route /calculate request received. req.body is: ', req.body);
     let newCalc = req.body;
-    console.log('new data object is:', calculateEquation(newCalc));
+    newCalc=calculateEquation(newCalc);
     calculationHistory.push(newCalc);
-    console.log(calculationHistory);
     res.sendStatus(201);
 });
 
 app.get('/calculate', (req, res) => {
     res.send(calculationHistory);
+});
+
+app.delete('/delete', (req, res) => {
+    calculationHistory = [];
+    res.sendStatus(201);
 });
 
 app.listen(PORT, () => {
