@@ -14,31 +14,43 @@
         <h1>Server Side Calculator</h1>
     </header>
     <div class = "container">
-        <section class = "display calulator">
+        <section class = "display calculator">
             <p id="input_display"></p>
-            <button class="numbtn" data-val="1">1</button>
-            <button class="numbtn" data-val="2">2</button>
-            <button class="numbtn" data-val="3">3</button>
-            <button class="numbtn" data-val="4">4</button>
-            <button class="numbtn" data-val="5">5</button>
-            <button class="numbtn" data-val="6">6</button>
-            <button class="numbtn" data-val="7">7</button>
-            <button class="numbtn" data-val="8">8</button>
-            <button class="numbtn" data-val="9">9</button>
-            <button class="numbtn" data-val="0">0</button>
-            <button class="numbtn dec" data-val=".">.</button>
-
-            <button class="opbtn" data-val="+">+</button>
-            <button class="opbtn" data-val="-">-</button>
-            <button class="opbtn" data-val="*">*</button>
-            <button class="opbtn" data-val="/">/</button>
-            <button class="equals">=</button>
-            <button class="clear">C</button>
-        </section>
+            <p id="solution_display"></p>
+            <div id="row5">
+                <div class ="blank"></div>
+                <div class ="blank"></div>
+                <div class ="blank"></div>
+                <button class="clear">C</button>
+            </div>
+            <div id="row4">
+                <button class="numbtn" data-val="7">7</button>
+                <button class="numbtn" data-val="8">8</button>
+                <button class="numbtn" data-val="9">9</button>
+                <button class="opbtn" data-val="/">/</button>
+            </div>
+            <div id="row3">
+                <button class="numbtn" data-val="4">4</button>
+                <button class="numbtn" data-val="5">5</button>
+                <button class="numbtn" data-val="6">6</button>
+                <button class="opbtn" data-val="*">*</button>
+            </div>
+            
+            <div id="row2">
+                <button class="numbtn" data-val="1">1</button>
+                <button class="numbtn" data-val="2">2</button>
+                <button class="numbtn" data-val="3">3</button>
+                <button class="opbtn" data-val="-">-</button>
+            </div>
+            <div id="row1">               
+                <button class="numbtn" data-val="0">0</button>
+                <button class="numbtn dec" data-val=".">.</button>
+                <button class="equals">=</button>
+                <button class="opbtn" data-val="+">+</button>
+            </div>
+                    </section>
         <section class = "display calculations">
-            <h3>Calculation History</h3>
-            <button class = "delete">CLEAR HISTORY</button>
-            <h4 id="solution"></h4>
+            <button class = "delete">ERASE</button>
             <ul id="calculationHistory"></ul>
         </section>
     </div>

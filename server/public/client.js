@@ -10,7 +10,9 @@ function onReady() {
     $('.delete').on('click', clearHistory); // clears history
     $('.dec').on('click',  ()=>{decimalCounter ++; decimalToggle();}); //sets and toggles decimal
     $('#calculationHistory').on('click', '[id*=equation]',resubmitEquation); //allows user to re-submit past equations
-    inputToggle();
+    startWithEquationHistory();
+    clearFields();
+
 }
 
 let equationInputArray = [];
@@ -32,7 +34,7 @@ function inputToggle() { //prevents user input error
     }
 }
 
-function decimalToggle() {
+function decimalToggle() { //toggles decimal button
     if (decimalCounter === 1) {
         $('.dec').prop('disabled', true);
     } else {
@@ -40,7 +42,7 @@ function decimalToggle() {
     }
 }
 
-function addTerms() {
+function addTerms() { //pushes numeral and decimal inputs to input array and display field
     equationInputArray.push($(this).data('val')); //adds terms to input array
     $('#input_display').append($(this).data('val')); //adds terms to display field
     inputCounter ++;
@@ -48,7 +50,7 @@ function addTerms() {
     decimalToggle()
 }
 
-function setOperator() {
+function setOperator() { //sets operator variable and resets counters
     selectedOperator = $(this).data('val'); //sets operator to global variable
     equationInputArray.push($(this).data('val')); // add 
     $('#input_display').append(` ${$(this).data('val')} `);
@@ -58,15 +60,16 @@ function setOperator() {
     decimalToggle();
 }
 
-function createEquationObject() {
+function createEquationObject() { //creates equation data object
     equationInputArray = equationInputArray.join('').split(`${selectedOperator}`);
     equation.operator = selectedOperator;
     equation.termOne = equationInputArray[0];
     equation.termTwo = equationInputArray[1];
 }
 
-function clearFields() {
+function clearFields() { // clears display fields and all variables
     $('#input_display').empty();
+    $('#solution_display').empty();
     equationInputArray = [];
     equation = {};
     selectedOperator = null;
@@ -76,7 +79,7 @@ function clearFields() {
     decimalToggle();
 }
 
-function sendEquation() {
+function sendEquation() { // POST request to server
     createEquationObject();
     $.ajax({
         method: 'POST',
@@ -89,30 +92,51 @@ function sendEquation() {
     clearFields();
 }
 
-function getEquationSolution() {
+function getEquationSolution() { //GET request to server. recieves solution in array of equation objecs
     $.ajax({
         method: 'GET',
         url: '/calculate'
     }).then(function(equationSolutions){
-        $('#solution').empty();
+        $('#solution_display').empty();
         $('#calculationHistory').empty();
-        $('#solution').html(`
+        $('#solution_display').html(`
             ${equationSolutions[equationSolutions.length-1].solution}
         `);
         for (let i=0; i<equationSolutions.length; i++) {
-            $('#calculationHistory').prepend(`
+            $('#calculationHistory').append(`
             <li id="equation${i}" 
                 data-termone="${equationSolutions[i].termOne}" 
                 data-termtwo="${equationSolutions[i].termTwo}" 
                 data-operator="${equationSolutions[i].operator}">
                 ${equationSolutions[i].termOne} ${equationSolutions[i].operator} ${equationSolutions[i].termTwo}
             </li>
-        `);
+            `);
         }
     });
 }
 
-function resubmitEquation() {
+function startWithEquationHistory() { //same as getEquationHistory but clears solution field.
+    $.ajax({
+        method: 'GET',
+        url: '/calculate'
+    }).then(function(equationSolutions){
+        $('#solution_display').empty();
+        $('#calculationHistory').empty();
+        for (let i=0; i<equationSolutions.length; i++) {
+            $('#calculationHistory').append(`
+            <li id="equation${i}" 
+                data-termone="${equationSolutions[i].termOne}" 
+                data-termtwo="${equationSolutions[i].termTwo}" 
+                data-operator="${equationSolutions[i].operator}">
+                ${equationSolutions[i].termOne} ${equationSolutions[i].operator} ${equationSolutions[i].termTwo}
+            </li>
+            `);
+        }
+    });
+}
+
+
+function resubmitEquation() { //user can re-submit equation from history display
     $.ajax({
         method: 'POST',
         url: '/calculate',
@@ -127,7 +151,7 @@ function resubmitEquation() {
     })
 }
 
-function clearHistory() {
+function clearHistory() { //DELETE request to server
     $.ajax({
         method: 'DELETE',
         url: '/delete',
@@ -135,5 +159,5 @@ function clearHistory() {
         console.log('response', serverStatus);
         $('#calculationHistory').empty();
     })
-    $('#solution').empty();
+    $('#solution_display').empty();
 }

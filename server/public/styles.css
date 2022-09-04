@@ -1,0 +1,81 @@
+
+/* body * {
+    outline: solid red 1px;
+} */
+body, .calculator { 
+    margin: 0;
+    background: rgba(167,73,161,0.63);
+    background: repeating-radial-gradient(ellipse farthest-side at left center, rgba(167,73,161,0.63) 2%, #ff009f 20%);
+    background: -webkit-repeating-radial-gradient(ellipse farthest-side at left center, rgba(167,73,161,0.63) 2%, #ff009f 20%);
+    background: -moz-repeating-radial-gradient(ellipse farthest-side at left center, rgba(167,73,161,0.63) 2%, #ff009f 20%);
+}
+.container, .display {
+    display: flex;
+    justify-content: space-around;
+}
+
+header * {
+    text-align: center;
+    font-family:cursive;
+    font-weight:400;
+    color:rgb(32, 32, 221)
+}
+
+.display {
+    flex-direction: column;
+    align-self: center;
+}
+.calculator {
+    height: 300px;
+    width: 200px;
+    border: solid rgba(45, 45, 243, 0.627) 5px;
+}
+
+.calculations {
+    height: 600px;
+    width: 400px;
+    background-color:wheat;
+    border: solid rgba(186, 112, 56, 0.822) 2px; 
+}
+
+div[id*='row'] {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.blank {
+    height: 40px;
+    width: 40px;
+}
+
+#input_display{
+    background-color: rgba(170, 237, 203, 0.623);
+    margin: 3px;
+    height: 20%;
+    border: solid blueviolet 1px;
+}
+#solution_display {
+    background-color: rgba(170, 237, 203, 0.623);
+    margin: 3px;
+    height: 30%;
+    border: solid blueviolet 1px;
+}
+
+.calculator> div> button {
+    height: 40px;
+    width: 40px;
+}
+
+button {
+    background-color:indianred;
+    font-size: 30px;
+    font-family:fantasy
+}
+
+#calculationHistory {
+    justify-content:left;
+}
+.delete {
+    justify-self: end;
+}
