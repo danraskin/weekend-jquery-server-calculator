@@ -8,6 +8,7 @@ function onReady() {
     $('.clear').on('click',clearFields); //clear user input display field
     $('.equals').on('click', sendEquation); // '=' sends data
     $('.delete').on('click', clearHistory); // clears history
+    $('.dec').on('click',  ()=>{decimalCounter ++; decimalToggle();}); //sets and toggles decimal
     $('#calculationHistory').on('click', '[id*=equation]',resubmitEquation); //allows user to re-submit past equations
     inputToggle();
 }
@@ -16,6 +17,7 @@ let equationInputArray = [];
 let equation = {};
 let selectedOperator = null;
 let inputCounter = 0;
+let decimalCounter = 0;
 
 function inputToggle() { //prevents user input error
     if (inputCounter === 0) {
@@ -30,11 +32,20 @@ function inputToggle() { //prevents user input error
     }
 }
 
+function decimalToggle() {
+    if (decimalCounter === 1) {
+        $('.dec').prop('disabled', true);
+    } else {
+        $('.dec').prop('disabled', false);
+    }
+}
+
 function addTerms() {
     equationInputArray.push($(this).data('val')); //adds terms to input array
     $('#input_display').append($(this).data('val')); //adds terms to display field
     inputCounter ++;
     inputToggle();
+    decimalToggle()
 }
 
 function setOperator() {
@@ -42,7 +53,9 @@ function setOperator() {
     equationInputArray.push($(this).data('val')); // add 
     $('#input_display').append(` ${$(this).data('val')} `);
     inputCounter = 0;
+    decimalCounter = 0;
     inputToggle();
+    decimalToggle();
 }
 
 function createEquationObject() {
@@ -58,7 +71,9 @@ function clearFields() {
     equation = {};
     selectedOperator = null;
     inputCounter = 0;
+    decimalCounter = 0;
     inputToggle();
+    decimalToggle();
 }
 
 function sendEquation() {

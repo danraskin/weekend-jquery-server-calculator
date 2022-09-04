@@ -44,9 +44,7 @@ numeral, decimal, and arithmetic button values are stored as html data attribute
 User input is controlled with a inputToggle()
     inputToggle() looks at the the status of seletedOperator variable and inputCounter and evaluates through an IF/ELSE tree.
     
-    Users can only submit equations if two terms an an operator have been selected. function also controls the order in which users can enter terms into the field; an operator cannot be seleted before a number and only one operator at a time can be selected.
-
-**Input toggle does NOT currently prevent users from improperly submitting terms with multiple decimals.**
+    Users can only submit equations if two terms an an operator have been selected. function also controls the order in which users can enter terms into the field; an operator cannot be seleted before a number and only one operator at a time can be selected. additional variables and functions added to ensure proper decimal inputs.
 
 **CLIENT**
 
